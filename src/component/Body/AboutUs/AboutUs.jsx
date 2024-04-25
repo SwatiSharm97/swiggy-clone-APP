@@ -1,4 +1,4 @@
-import UserClass from "../../ClassComponent/UserClass";
+// import UserClass from "../../ClassComponent/UserClass";
 import React from "react";
 
 class AboutUs extends React.Component {
@@ -19,7 +19,7 @@ class AboutUs extends React.Component {
     return (
       <>
         <div>hello i am in about us page</div>
-        <UserClass name ={"swati"}/>
+        {/* <UserClass name ={"swati"}/> */}
       </>
     );
   }

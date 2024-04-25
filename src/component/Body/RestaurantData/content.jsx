@@ -62,7 +62,7 @@ const RestroData = () => {
             className="cursor-pointer hover:bg-gray-400 bg-gray-300 py-1 px-2 border rounded"
             onClick={FilterData}
           >
-            Top Rated Reastrurant
+            Top Rated Restaurants
           </button>
           <input
             className="border border-slate-700"

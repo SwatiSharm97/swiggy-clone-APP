@@ -21,7 +21,7 @@ const MenuCarousal = () => {
   };
 
   return (
-    <div className="w-full py-10">
+    <div className="w-full py-10 bg-black px-2 bg-opacity-20">
       <div className="flex w-full justify-between mb-2">
         <div className=" font-bold text-2xl">
           Top restaurant chains in Delhi
