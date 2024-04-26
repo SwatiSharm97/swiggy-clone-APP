@@ -1,24 +1,23 @@
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
-import FoodModal from "../Body/Modal/FoodModal";
+import { useContext} from "react";
 import useOnlineStatus from "../../utils/useOnlinestatus";
-import UserContext from "../../utils/userContext";
 import { useSelector } from "react-redux";
+import themeContext from "../../utils/themeContext";
 
-const Header = () => {
-  const [open, setIsopen] = useState(false);
-  const openModal = () => setIsopen(true);
-  const closeModal = () => setIsopen(false);
+const Header = ({ HandleTheme }) => {
   const onlineStatus = useOnlineStatus();
-  const data = useContext(UserContext); // can do {loggedInUser} = useContext(UserContext) and dirtcly add in list
+  const theme = useContext(themeContext);
+  // const theme = useContext(UserContext); // can do {loggedInUser} = useContext(UserContext) and dirtcly add in list
   const totalCartItem = useSelector((store) => store.cart.items);
-  // const counter = useSelector((store)=>store.cart.count)
-  // console.log(totalCartItem)
-  // console.log(counter)
+  console.log(theme);
 
   return (
     <>
-      <div className=" p-4 flex flex-row justify-center items-center shadow-xl w-full">
+      <div
+        className={`p-4 flex flex-row justify-center items-center shadow-xl w-full ${
+          theme.DefaultTheme === "light" ? "bg-white" : "bg-gray-900"
+        } `}
+      >
         <div className="w-3/4 flex flex-row items-center justify-between  ">
           <div>
             <img
@@ -27,7 +26,7 @@ const Header = () => {
             ></img>
           </div>
           <div className="">
-            <ul className="flex gap-4 font-bold text-gray-600">
+            <ul className={`flex gap-4 font-bold ${ theme.DefaultTheme === "light" ? "text-gray-600" : "text-gray-200"} `}>
               <li>online status : {onlineStatus ? "🟢" : "🔴"}</li>
               <li>
                 <Link to="/">Home</Link>
@@ -38,23 +37,25 @@ const Header = () => {
               <li>
                 <Link to="/contactusPage">Contact Us</Link>
               </li>
-              <li className="text-black">
+              <li>
                 <Link to="/grocery">Grocery </Link>
               </li>
               <li>
                 <Link to="/cart">
                   Cart
-                  <span className="text-black">
+                  <span className={`${theme.DefaultTheme ==="light" ? "text-black" : "text-gray-400"}`}>
                     ({totalCartItem.length}items)
                   </span>
                 </Link>
               </li>
-              <li className="font-bold text-black">{data.loggedInUser}</li>
-              <li>
-                <button onClick={openModal}> CLICK</button>
+              <li
+                onClick={() => {
+                  HandleTheme();
+                }}
+              >
+                {theme.DefaultTheme}
               </li>
             </ul>
-            {open && <FoodModal isopen={open} Onclose={closeModal} />}
           </div>
         </div>
       </div>

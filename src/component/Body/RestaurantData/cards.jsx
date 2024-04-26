@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { CDN_url } from "../../../utils/urls";
+import themeContext from "../../../utils/themeContext"
+import { useContext} from "react";
 
 const RestroCard = (resData) => {
   const {
@@ -12,6 +14,8 @@ const RestroCard = (resData) => {
     offer,
     upto,
   } = resData;
+  const theme = useContext(themeContext);
+  console.log("content card", theme)
 
   return (
     <div className="">
@@ -24,7 +28,7 @@ const RestroCard = (resData) => {
             ></img>
           </div>
 
-          <div className=" ml-1 w-[300px] bg-black bg-opacity-70">
+          <div className={`ml-1 w-[300px] b bg-opacity-70 ${theme.DefaultTheme === "light" ? "bg-black" : "bg-gray-800"}`}>
             <p className="font-extrabold text-xl text-white">
               {offer} {upto}
             </p>
@@ -32,8 +36,8 @@ const RestroCard = (resData) => {
         </div>
 
         <div className="px-2">
-          <p className="text-lg font-bold line-clamp-1 leading-loose">{name}</p>
-          <p className="text-base font-extrabold ">
+          <p className={`text-lg font-bold line-clamp-1 leading-loose ${theme.DefaultTheme === "light" ? "text-gray-700" : "text-gray-400"}`}>{name}</p>
+          <p className={`text-base font-extrabold ${theme.DefaultTheme === "light" ? "text-gray-700" : "text-gray-400"}`}>
             {rating} : {deliveryTime}min
           </p>
           <p className="text-slate-500  line-clamp-1 leading-loose">

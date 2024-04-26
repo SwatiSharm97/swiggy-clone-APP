@@ -1,10 +1,13 @@
 import { useRef } from "react";
 import useMainMenuData from "../../../utils/Api/useMainMenu";
 import RestroCard from "./cards";
+import themeContext from "../../../utils/themeContext";
+import { useContext } from "react";
 
 const MenuCarousal = () => {
   const MenuData = useMainMenuData();
   const divRef = useRef(null);
+  const theme = useContext(themeContext);
 
   const scrollLeft = () => {
     if (divRef.current) {
@@ -21,9 +24,17 @@ const MenuCarousal = () => {
   };
 
   return (
-    <div className="w-full py-10 bg-black px-2 bg-opacity-20">
+    <div
+      className={`w-full py-10 px-2  ${
+        theme.DefaultTheme === "light" ? "bg-gray-300" : "bg-gray-900"
+      }`}
+    >
       <div className="flex w-full justify-between mb-2">
-        <div className=" font-bold text-2xl">
+        <div
+          className={`font-bold text-2xl ${
+            theme.DefaultTheme === "light" ? "text-black" : "text-gray-300"
+          }`}
+        >
           Top restaurant chains in Delhi
         </div>
         <div className="flex gap-2 text-white">

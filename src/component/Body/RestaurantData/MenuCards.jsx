@@ -2,10 +2,12 @@ import PropTypes from "prop-types";
 // import { useContext, useState } from "react";
 import MenuSubCards from "./MenuSubCards";
 import { useState } from "react";
+import themeContext from "../../../utils/themeContext";
+import { useContext } from "react";
 
 const MenuCards = ({ category }) => {
   const [showIndex, setShowIndex] = useState(false);
-
+  const theme = useContext(themeContext);
   const HandleClick = () => {
     setShowIndex(!showIndex);
   };
@@ -16,13 +18,29 @@ const MenuCards = ({ category }) => {
         className="flex flex-row justify-between pt-4 pb-4 cursor-pointer"
         onClick={HandleClick}
       >
-        <span className="text-xl font-bold">
+        <span
+          className={` text-xl font-bold ${
+            theme.DefaultTheme === "light" ? "text-gray-800" : "text-gray-300"
+          } `}
+        >
           {category.title}({category?.itemCards?.length})
         </span>
         {showIndex ? (
-          <span className="text-2xl ">&#8964;</span>
+          <span
+            className={`text-2xl ${
+              theme.DefaultTheme === "light" ? "text-gray-800" : "text-gray-300"
+            } `}
+          >
+            &#8964;
+          </span>
         ) : (
-          <span className="text-2xl ">&#94;</span>
+          <span
+            className={`text-2xl ${
+              theme.DefaultTheme === "light" ? "text-gray-800" : "text-gray-300"
+            } `}
+          >
+            &#94;
+          </span>
         )}
       </div>
       {showIndex && (

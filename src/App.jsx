@@ -7,46 +7,45 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RestroData from "./component/Body/RestaurantData/content";
 import { Fragment } from "react";
 import Skeleton from "./component/Body/Shimmer";
-import UserContext from "./utils/userContext";
 import CartPage from "./component/Cart/cart";
 import ContactUs from "./component/Body/ContactUs/ContactUs";
+import themeContext from "./utils/themeContext";
+import { useContext } from "react";
 
 // import Grocery  from "./component/Grocery/grocery";
 
 const Grocery = lazy(() => import("./component/Grocery/grocery"));
 
 function App() {
-  const [userName, setUserName] = useState();
-
-  useEffect(() => {
-    const data = {
-      name: "swati sharma",
-    };
-    setUserName(data.name);
-  }, []);
+  const theme = useContext(themeContext);
+  const [Localtheme, setTheme] = useState("light");
+  const HandleTheme = () => {
+    Localtheme === "dark" ? setTheme("light") : setTheme("dark");
+  };
   return (
-    <div className="">
+    <div >
       <Router>
         <Fragment>
-          <UserContext.Provider value={{ loggedInUser: "updated value" }}>
-            <Header />
-          </UserContext.Provider>
-          <Routes>
-            <Route path="/" element={<RestroData />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/restaurant/:resid" element={<RestaurantMenu />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/contactusPage" element={<ContactUs/>} />
-            <Route
-              path="/grocery"
-              element={
-                <Suspense fallback={<Skeleton />}>
-                  <Grocery />
-                </Suspense>
-              }
-            />
-          </Routes>
+          <themeContext.Provider value={{ DefaultTheme: Localtheme }}>
+            <Header HandleTheme={HandleTheme} />
+
+            <Routes>
+              <Route path="/" element={<RestroData />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/restaurant/:resid" element={<RestaurantMenu />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/contactusPage" element={<ContactUs />} />
+              <Route
+                path="/grocery"
+                element={
+                  <Suspense fallback={<Skeleton />}>
+                    <Grocery />
+                  </Suspense>
+                }
+              />
+            </Routes>
+          </themeContext.Provider>
         </Fragment>
       </Router>
     </div>

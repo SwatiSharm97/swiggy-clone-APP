@@ -3,15 +3,15 @@ import Skeleton from "../Shimmer";
 import useRestaurantMenu from "../../../utils/Api/useRestaurantMenu";
 import MenuCards from "./MenuCards";
 import { useState } from "react";
+import themeContext from "../../../utils/themeContext";
+import { useContext } from "react";
 
 const RestaurantMenu = () => {
   const [showindex, setShowIndex] = useState(null);
   const { resid } = useParams();
   const resinfo = useRestaurantMenu(resid);
-  console.log(resinfo)
-  // console.log(resinfo.cards[2].card.card.info)
-  //  const { name, cuisines, locality, city, avgRating } =
-  //   resinfo.cards[2].card.card.info;
+  console.log(resinfo);
+  const theme = useContext(themeContext);
 
   if (resinfo.length === 0)
     return (
@@ -31,19 +31,46 @@ const RestaurantMenu = () => {
 
   // const { name, cuisines, locality, city, avgRating } =
   //   resinfo.cards[2].card.card.info;
-   
+
   return (
-    <div className=" w-full flex flex-col justify-center items-center divide-y">
+    <div
+      className={` w-full flex flex-col justify-center items-center divide-y ${
+        theme.DefaultTheme === "light" ? "bg-white" : "bg-gray-950"
+      } `}
+    >
       <div className=" w-2/3 flex flex-row justify-between  items-center  m-4">
         <div>
-          <p className="font-bold text-3xl">{resinfo?.cards[2]?.card?.card?.info?.name}</p>
-          <p className="text-gray-500">{resinfo?.cards[2]?.card?.card?.info?.cuisines.join(", ")}</p>
-          <p className="text-gray-500">
-            {resinfo?.cards[2]?.card?.card?.info?.locality},{resinfo?.cards[2]?.card?.card?.info?.city}
+          <p
+            className={` font-bold text-3xl ${
+              theme.DefaultTheme === "light" ? "text-gray-700" : "text-gray-200"
+            } `}
+          >
+            {resinfo?.cards[2]?.card?.card?.info?.name}
+          </p>
+          <p
+            className={`${
+              theme.DefaultTheme === "light" ? "text-gray-500" : "text-gray-200"
+            } `}
+          >
+            {resinfo?.cards[2]?.card?.card?.info?.cuisines.join(", ")}
+          </p>
+          <p
+            className={`${
+              theme.DefaultTheme === "light" ? "text-gray-500" : "text-gray-200"
+            } `}
+          >
+            {resinfo?.cards[2]?.card?.card?.info?.locality},
+            {resinfo?.cards[2]?.card?.card?.info?.city}
           </p>
         </div>
         <div>
-          <p>{resinfo?.cards[2]?.card?.card?.info?.avgRating} Rating</p>
+          <p
+            className={`${
+              theme.DefaultTheme === "light" ? "text-gray-500" : "text-gray-200"
+            } `}
+          >
+            {resinfo?.cards[2]?.card?.card?.info?.avgRating} Rating
+          </p>
         </div>
       </div>
       <div className=" w-2/3 flex flex-col justify-center m-2 divide-y-8">
