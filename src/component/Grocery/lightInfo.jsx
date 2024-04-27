@@ -11,7 +11,7 @@ const TrafficSemulator = () => {
           break;
 
         case "yellow":
-          setCurrentColor("green");
+          setCurrentColor("red");
           break;
 
         case "green":
@@ -42,7 +42,7 @@ const TrafficSemulator = () => {
         className={`w-4/5 h-1/4 border border-gray-600 m-3 rounded-full ${
           currentcolor === "green" ? "bg-green-500" : "bg-gray-800"
         } `}
-      ></span>{" "}
+      ></span>
     </div>
   );
 };
