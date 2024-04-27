@@ -44,7 +44,7 @@ const Header = ({ HandleTheme }) => {
                 <Link to="/contactusPage">Contact Us</Link>
               </li>
               <li>
-                <Link to="/grocery">Grocery </Link>
+                <Link to="/grocery">React Examples</Link>
               </li>
               <li>
                 <Link to="/cart">
