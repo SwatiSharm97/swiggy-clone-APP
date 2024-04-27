@@ -5,18 +5,18 @@ import { useState } from "react";
 import themeContext from "../../../utils/themeContext";
 import { useContext } from "react";
 
-const MenuCards = ({ category }) => {
-  const [showIndex, setShowIndex] = useState(false);
+const MenuCards = ({ category,showItems,setShowIndex }) => {
+  // const [showIndex, setShowIndex] = useState(false);
   const theme = useContext(themeContext);
-  const HandleClick = () => {
-    setShowIndex(!showIndex);
-  };
+  // const HandleClick = () => {
+  //   setShowIndex(!showIndex);
+  // };
 
   return (
     <div>
       <div
         className="flex flex-row justify-between pt-4 pb-4 cursor-pointer"
-        onClick={HandleClick}
+        onClick={()=>{setShowIndex()}}
       >
         <span
           className={` text-xl font-bold ${
@@ -25,7 +25,7 @@ const MenuCards = ({ category }) => {
         >
           {category.title}({category?.itemCards?.length})
         </span>
-        {showIndex ? (
+        {showItems ? (
           <span
             className={`text-2xl ${
               theme.DefaultTheme === "light" ? "text-gray-800" : "text-gray-300"
@@ -43,7 +43,7 @@ const MenuCards = ({ category }) => {
           </span>
         )}
       </div>
-      {showIndex && (
+      {showItems && (
         <div className="divide-y">
           {category?.itemCards.map((item) => (
             <MenuSubCards
