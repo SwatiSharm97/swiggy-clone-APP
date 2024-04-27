@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext} from "react";
+import { useContext } from "react";
 import useOnlineStatus from "../../utils/useOnlinestatus";
 import { useSelector } from "react-redux";
 import themeContext from "../../utils/themeContext";
@@ -26,7 +26,13 @@ const Header = ({ HandleTheme }) => {
             ></img>
           </div>
           <div className="">
-            <ul className={`flex gap-4 font-bold ${ theme.DefaultTheme === "light" ? "text-gray-600" : "text-gray-200"} `}>
+            <ul
+              className={`flex gap-4 font-bold ${
+                theme.DefaultTheme === "light"
+                  ? "text-gray-600"
+                  : "text-gray-200"
+              } `}
+            >
               <li>online status : {onlineStatus ? "🟢" : "🔴"}</li>
               <li>
                 <Link to="/">Home</Link>
@@ -43,18 +49,18 @@ const Header = ({ HandleTheme }) => {
               <li>
                 <Link to="/cart">
                   Cart
-                  <span className={`${theme.DefaultTheme ==="light" ? "text-black" : "text-gray-400"}`}>
+                  <span
+                    className={`${
+                      theme.DefaultTheme === "light"
+                        ? "text-black"
+                        : "text-gray-400"
+                    }`}
+                  >
                     ({totalCartItem.length}items)
                   </span>
                 </Link>
               </li>
-              <li
-                onClick={() => {
-                  HandleTheme();
-                }}
-              >
-                {theme.DefaultTheme}
-              </li>
+              <li onClick={HandleTheme}>{theme.DefaultTheme}</li>
             </ul>
           </div>
         </div>
