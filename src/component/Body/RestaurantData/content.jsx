@@ -13,6 +13,7 @@ const RestroData = () => {
   const [restroInfo, setRestroinfo] = useState([]);
   const [text, setText] = useState("");
   const [filterData, setfilterData] = useState([]);
+  const [cardWidth, setCardWidth] = useState('w-full')
   const onlineStatus = useOnlineStatus();
   const theme = useContext(themeContext);
   console.log("content theme", restroInfo);
@@ -111,7 +112,7 @@ const RestroData = () => {
         >
           Restaurants with online food delivery in Delhi
         </span>
-        <div className="flex gap-4 p-2">
+        <div className="flex gap-4 pb-4">
           <button
             className=" px-4 py-1 border border-gray-500 rounded-3xl"
             onClick={TopRatedResturantData}
@@ -131,7 +132,7 @@ const RestroData = () => {
             Offers
           </button>
         </div>
-        <div className="w-full grid grid-cols-4 gap-4">
+        <div className=" grid grid-cols-4 gap-8">
           {restroInfo.map((item) => (
             <Link key={item.info.id} to={"/restaurant/" + item.info.id}>
               <RestroCard
@@ -151,6 +152,7 @@ const RestroData = () => {
                     ? item.info.aggregatedDiscountInfoV3.subHeader
                     : " "
                 }
+                width={cardWidth}
               />
             </Link>
           ))}

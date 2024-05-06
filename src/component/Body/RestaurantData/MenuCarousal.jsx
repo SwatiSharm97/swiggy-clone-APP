@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef ,useState} from "react";
 import useMainMenuData from "../../../utils/Api/useMainMenu";
 import RestroCard from "./cards";
 import themeContext from "../../../utils/themeContext";
@@ -8,6 +8,7 @@ const MenuCarousal = () => {
   const MenuData = useMainMenuData();
   const divRef = useRef(null);
   const theme = useContext(themeContext);
+  const [cardWidth, setCardWidth] = useState('w-[270px]')
 
   const scrollLeft = () => {
     if (divRef.current) {
@@ -25,9 +26,7 @@ const MenuCarousal = () => {
 
   return (
     <div
-      className={`w-full py-10 px-2  ${
-        theme.DefaultTheme === "light" ? "bg-gray-300" : "bg-gray-900"
-      }`}
+      className={`w-full py-10 px-2  `}
     >
       <div className="flex w-full justify-between mb-2">
         <div
@@ -75,6 +74,7 @@ const MenuCarousal = () => {
                 ? item.info.aggregatedDiscountInfoV3.subHeader
                 : " "
             }
+            width ={cardWidth}
           />
         ))}
       </div>
