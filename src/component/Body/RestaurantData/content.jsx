@@ -6,8 +6,8 @@ import Skeleton from "../Shimmer";
 import { RESTAURENT_API } from "../../../utils/urls";
 import useOnlineStatus from "../../../utils/useOnlinestatus";
 import MenuCarousal from "./MenuCarousal";
-import themeContext from "../../../utils/themeContext"
-import { useContext} from "react";
+import themeContext from "../../../utils/themeContext";
+import { useContext } from "react";
 
 const RestroData = () => {
   const [restroInfo, setRestroinfo] = useState([]);
@@ -15,7 +15,7 @@ const RestroData = () => {
   const [filterData, setfilterData] = useState([]);
   const onlineStatus = useOnlineStatus();
   const theme = useContext(themeContext);
-  console.log("content theme", theme)
+  console.log("content theme", restroInfo);
 
   useEffect(() => {
     restroFetchData();
@@ -32,8 +32,22 @@ const RestroData = () => {
     );
   };
 
-  const FilterData = () => {
+  const TopRatedResturantData = () => {
     const filterdata = filterData.filter((item) => item.info.avgRating > 4);
+    setRestroinfo(filterdata);
+  };
+
+  const OffersData = () => {
+    const filterdata = filterData.filter(
+      (item) => item.info.aggregatedDiscountInfoV3
+    );
+    setRestroinfo(filterdata);
+  };
+
+  const FastDeliveryData = () => {
+    const filterdata = filterData.filter(
+      (item) => item.info.sla.deliveryTime < 30
+    );
     setRestroinfo(filterdata);
   };
 
@@ -59,16 +73,13 @@ const RestroData = () => {
     );
   }
   return (
-    <div className={`w-full flex justify-center ${theme.DefaultTheme === "dark" && "bg-gray-950"}`}>
+    <div
+      className={`w-full flex justify-center ${
+        theme.DefaultTheme === "dark" && "bg-gray-950"
+      }`}
+    >
       <div className="flex flex-col m-2 w-9/12">
         <div className="flex gap-2 items-center w-full my-8 ">
-          <button
-            className="cursor-pointer hover:bg-gray-400 bg-gray-300 py-1 px-2 border rounded"
-            onClick={FilterData}
-          >
-            Top Rated Restaurants
-          </button>
-          
           <button
             className="cursor-pointer hover:bg-gray-400 bg-gray-300 py-1 px-2 border rounded"
             onClick={OnSearchData}
@@ -84,8 +95,42 @@ const RestroData = () => {
             }}
           ></input>
         </div>
-        <div className={`flex  w-full  border-b-2 border-t-2 ${theme.DefaultTheme === "light" ? "border-gray-300" : "border-gray-400"}`} ><MenuCarousal /></div>
-        <span className={ `w-full mt-6 mb-2 font-bold text-2xl ${theme.DefaultTheme === "light" ? "text-black" : "text-gray-300"}`}>Restaurants with online food delivery in Delhi</span>
+        <div
+          className={`flex  w-full  border-b-2 border-t-2 ${
+            theme.DefaultTheme === "light"
+              ? "border-gray-300"
+              : "border-gray-400"
+          }`}
+        >
+          <MenuCarousal />
+        </div>
+        <span
+          className={`w-full mt-6 mb-2 font-bold text-2xl ${
+            theme.DefaultTheme === "light" ? "text-black" : "text-gray-300"
+          }`}
+        >
+          Restaurants with online food delivery in Delhi
+        </span>
+        <div className="flex gap-4 p-2">
+          <button
+            className=" px-4 py-1 border border-gray-500 rounded-3xl"
+            onClick={TopRatedResturantData}
+          >
+            Top Rated Restaurants
+          </button>
+          <button
+            className="px-4 py-1 border border-gray-500 rounded-3xl"
+            onClick={FastDeliveryData}
+          >
+            Fast Delivery
+          </button>
+          <button
+            className="px-4 py-1 border border-gray-500 rounded-3xl"
+            onClick={OffersData}
+          >
+            Offers
+          </button>
+        </div>
         <div className="w-full grid grid-cols-4 gap-4">
           {restroInfo.map((item) => (
             <Link key={item.info.id} to={"/restaurant/" + item.info.id}>
@@ -106,7 +151,6 @@ const RestroData = () => {
                     ? item.info.aggregatedDiscountInfoV3.subHeader
                     : " "
                 }
-            
               />
             </Link>
           ))}

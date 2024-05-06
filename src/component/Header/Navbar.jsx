@@ -61,6 +61,7 @@ const Header = ({ HandleTheme }) => {
                 </Link>
               </li>
               <li onClick={HandleTheme}>{theme.DefaultTheme}</li>
+              {/* <li className="">☀️</li> */}
             </ul>
           </div>
         </div>
